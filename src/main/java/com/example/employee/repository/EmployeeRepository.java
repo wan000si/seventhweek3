@@ -22,9 +22,9 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     //2.找出Employee表中第一个姓名包含`*`字符并且薪资大于*的雇员个人信息
     Employee findByNameLikeAndSalaryGreaterThan(@Param("name") String name,@Param("salary") int salary);
 
-    @Query(value = "select e.name from Employee e where e.companyId=?1 order by e.salary desc limit 1",nativeQuery = true)
+    @Query(value = "select e from Employee e where e.companyId=?1 order by e.salary desc limit 1",nativeQuery = true)
         //3.找出一个薪资最高且公司ID是*的雇员以及该雇员的姓名
-    String getTopByCompanyIdOrderBySalaryDesc(@Param("companyId") int companyId);
+    Employee getTopByCompanyIdOrderBySalaryDesc(@Param("companyId") int companyId);
 
     //4.实现对Employee的分页查询，每页两个数据
     Page<Employee> findAll(Pageable pageable);
